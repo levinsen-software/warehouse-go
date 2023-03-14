@@ -42,7 +42,9 @@ func (s keyResult) GetString(i int) string {
 func (c *Client) FindBundles(q Query, s Sorting, limit int) ([]*Bundle, error) {
 	keys := []string{"bundle.id"}
 
-	keys = append(keys, s.Key)
+	if len(s.Key) > 0 {
+		keys = append(keys, s.Key)
+	}
 
 	search, err := c.SearchKeys(KeySearch{
 		Table:   "bundles",
@@ -87,7 +89,9 @@ func (c *Client) FindBundle(q Query, s Sorting) (*Bundle, error) {
 func (c *Client) FindFiles(q Query, s Sorting, limit int) ([]*File, error) {
 	keys := []string{"file.id"}
 
-	keys = append(keys, s.Key)
+	if len(s.Key) > 0 {
+		keys = append(keys, s.Key)
+	}
 
 	search, err := c.SearchKeys(KeySearch{
 		Table:   "files",
